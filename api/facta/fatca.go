@@ -7,20 +7,49 @@ import (
 	"github.com/gin-gonic/gin"
 	API "github.com/oakahn/GolangFatca/api"
 	Data "github.com/oakahn/GolangFatca/data"
-	Response "github.com/oakahn/GolangFatca/model/Response"
+	Request "github.com/oakahn/GolangFatca/model/request"
+	Response "github.com/oakahn/GolangFatca/model/response"
 	Url "github.com/oakahn/GolangFatca/web"
 )
 
 func CallFatca() gin.HandlerFunc {
+	// datas := getData()
+	var requests Request.Envelope
+
 	return func(c *gin.Context) {
 
-		data := getData()
+		err := c.Bind(&requests)
 
-		c.JSON(200, gin.H{
-			"Response": data,
-		})
+		if err != nil {
+			c.AbortWithStatusJSON(500, map[string]string{"err": err.Error()})
+			return
+		}
+
+		c.JSON(200, requests)
 	}
 }
+
+var tests = `{
+	"soapenv:Envelope": {
+	  "-xmlns:soapenv": "http://schemas.xmlsoap.org/soap/envelope/",
+	  "-xmlns:ejbs": "http://ejbs",
+	  "soapenv:Body": {
+		"ejbs:getPartyFATCAInfo": {
+		  "request": {
+			"control": {
+			  "branch": "00000",
+			  "channel": "Test",
+			  "requestId": "20160125102700",
+			  "requesterName": "Test",
+			  "user": "585190"
+			},
+			"customerId": "79221",
+			"customerSource": "CBS"
+		  }
+		}
+	  }
+	}
+  }`
 
 func getData() Response.Envelope {
 	resp, _ := API.Post(Url.Facta, Data.MockData())
