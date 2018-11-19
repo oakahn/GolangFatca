@@ -36,7 +36,6 @@ func CallFatca() gin.HandlerFunc {
 
 func convertToXML(input Request.Request) string {
 	control := input.Control
-	fmt.Println(control)
 	data := Request.Control{
 		Branch:        control.Branch,
 		Channel:       control.Channel,
@@ -50,7 +49,6 @@ func convertToXML(input Request.Request) string {
 		CustomerID:     input.CustomerID,
 		CustomerSource: input.CustomerSource,
 	}
-	fmt.Println(request)
 
 	getPartyFATCAInfo := Request.GetPartyFATCAInfo{
 		Request: request,
@@ -74,7 +72,6 @@ func convertToXML(input Request.Request) string {
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(resp))
 	return string(resp)
 }
 
