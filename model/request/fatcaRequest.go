@@ -6,8 +6,11 @@ type Envelope struct {
 	XMLName xml.Name `xml:"soapenv:Envelope"`
 	Soapenv string   `xml:"xmlns:soapenv,attr"`
 	Ejbs    string   `xml:"xmlns:ejbs,attr"`
-	Header  string   `xml:"soapenv:Header"`
-	Body    Body     `xml:"soapenv:Body" json:"soapenv:Body"`
+	Header  Header   `xml:"soapenv:Header"`
+	Body    Body     `xml:"soapenv:Body"`
+}
+
+type Header struct {
 }
 
 type Body struct {
@@ -19,7 +22,7 @@ type GetPartyFATCAInfo struct {
 }
 
 type Request struct {
-	Control        Control `xml:"control" xml:"control"`
+	Control        Control `xml:"control"`
 	CustomerID     string  `xml:"customerId"`
 	CustomerSource string  `xml:"customerSource"`
 }
