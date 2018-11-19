@@ -2,7 +2,6 @@ package facta
 
 import (
 	"encoding/xml"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -14,8 +13,6 @@ import (
 )
 
 func CallFatca() gin.HandlerFunc {
-	// datas := getData()
-	// var requests Request.Envelope
 
 	return func(c *gin.Context) {
 
@@ -63,8 +60,6 @@ func convertToXML(input Request.Request) string {
 		Ejbs:    "http://ejbs",
 		Body:    body,
 	}
-
-	fmt.Println("Superman : ", soapenvEnvelope)
 
 	resp, err := xml.MarshalIndent(soapenvEnvelope, " ", "  ")
 

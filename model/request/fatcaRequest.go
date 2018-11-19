@@ -18,7 +18,7 @@ type Body struct {
 }
 
 type GetPartyFATCAInfo struct {
-	Request Request `xml:"request" json:"request"`
+	Request Request `xml:"request"`
 }
 
 type Request struct {
