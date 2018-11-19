@@ -73,7 +73,11 @@ func convertToXML(input Request.Request) string {
 func getData(text string) Response.Envelope {
 
 	// resp, _ := API.Post(Url.Facta, Data.MockData())
-	resp, _ := API.Post(Url.Facta, text)
+	resp, err := API.Post(Url.Facta, text)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	superman := Response.Envelope{}
 
